@@ -88,7 +88,7 @@ export default class Colaborador extends Component {
     buscarCargos() {
         api.get('/cargos')
             .then(response => {
-                this.setState({ cargos: response.data, colaborador: { ... this.state.colaborador, cargo: response.data[0] } });
+                this.setState({ cargos: response.data, colaborador: { ...this.state.colaborador, cargo: response.data[0] } });
             })
             .catch(erro => {
 
@@ -108,7 +108,7 @@ export default class Colaborador extends Component {
     buscarTimes() {
         api.get('/times')
             .then(response => {
-                this.setState({ times: response.data, colaborador: { ... this.state.colaborador, time: response.data[0] } });
+                this.setState({ times: response.data, colaborador: { ...this.state.colaborador, time: response.data[0] } });
             })
             .catch(erro => {
 
@@ -274,8 +274,9 @@ export default class Colaborador extends Component {
                 return <FaFacebookF size={size} />
             case 'Linked-in':
                 return <FaLinkedinIn size={size} />
+            default:
+                return '';
         }
-        return '';
     }
 
     confirmarExclusao = () => {
@@ -319,12 +320,12 @@ export default class Colaborador extends Component {
                 <Navbar />
                 <Container>
                     <div className='divAcoes'>
-                        <MdArrowBack size={28} onClick={() => this.voltarParaLista()}/>
+                        <MdArrowBack size={28} onClick={() => this.voltarParaLista()} />
                         <MdEdit onClick={this.setShowTrue} size={28} />
                         <MdDelete size={28} onClick={() => this.confirmarExclusao()} />
                     </div>
                     <div className='informacoesPessoais'>
-                        {!!(colaborador.foto && colaborador.foto.data) ? <img className='foto' src={`data:image/jpeg;base64,${this.state.colaborador.foto.data}`}></img> : <img src={avatar}></img>}
+                        {!!(colaborador.foto && colaborador.foto.data) ? <img alt='' className='foto' src={`data:image/jpeg;base64,${this.state.colaborador.foto.data}`}></img> : <img alt='' src={avatar}></img>}
                         <div className='dadosTextuais'>
                             <label className='labelNome' >{colaborador.nome}</label>
                             <label className='labelCargo' >{colaborador.cargo.nome}</label>
@@ -389,18 +390,18 @@ export default class Colaborador extends Component {
                                 <ContainerDados>
                                     <input type='text' placeholder='Nome do colaborador' name='nome' value={this.state.colaborador.nome} onChange={this.handleInputChangeColaborador}></input>
                                     <label>Cargo:</label>
-                                    <Form.Control as='select' size='lg' onChange={this.handleChangeSelectCargo.bind(this)}>
+                                    <Form.Control as='select' size='lg' onChange={this.handleChangeSelectCargo.bind(this)} value={colaborador.cargo.id}>
                                         {!!(cargos && cargos.length)
                                             && cargos.map(
-                                                cargo => <option key={cargo.id} value={cargo.id} selected={colaborador.cargo.id === cargo.id}>{cargo.nome}</option>
+                                                cargo => <option key={cargo.id} value={cargo.id} >{cargo.nome}</option>
                                             )
                                         }
                                     </Form.Control>
                                     <label>Time:</label>
-                                    <Form.Control as='select' size='lg' onChange={this.handleChangeSelectTime.bind(this)}>
+                                    <Form.Control as='select' size='lg' onChange={this.handleChangeSelectTime.bind(this)} value={colaborador.time.id}>
                                         {!!(times && times.length)
                                             && times.map(
-                                                time => <option key={time.id} value={time.id} selected={colaborador.time.id === time.id}>{time.nome}</option>
+                                                time => <option key={time.id} value={time.id} >{time.nome}</option>
                                             )
                                         }
                                     </Form.Control>

@@ -56,7 +56,7 @@ export default class BotaoNovoColaborador extends Component {
     buscarCargos() {
         api.get('/cargos')
             .then(response => {
-                this.setState({ cargos: response.data, colaborador: { ... this.state.colaborador, cargo: response.data[0] } });
+                this.setState({ cargos: response.data, colaborador: { ...this.state.colaborador, cargo: response.data[0] } });
             })
             .catch(erro => {
 
@@ -76,7 +76,7 @@ export default class BotaoNovoColaborador extends Component {
     buscarTimes() {
         api.get('/times')
             .then(response => {
-                this.setState({ times: response.data, colaborador: { ... this.state.colaborador, time: response.data[0] } });
+                this.setState({ times: response.data, colaborador: { ...this.state.colaborador, time: response.data[0] } });
             })
             .catch(erro => {
 
@@ -252,8 +252,9 @@ export default class BotaoNovoColaborador extends Component {
                 return <FaFacebookF size={18} />
             case 'Linked-in':
                 return <FaLinkedinIn size={18} />
+            default:
+                return '';
         }
-        return '';
     }
 
     render() {

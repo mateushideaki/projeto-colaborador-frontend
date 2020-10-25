@@ -4,6 +4,9 @@ import Navbar from '../../components/Navbar';
 import CardColaborador from '../../components/CardColaborador';
 import BotaoNovoColaborador from '../../components/BotaoNovoColaborador';
 import Search from '../../components/Search';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
+
 
 import { Container, ContainerBusca } from './styles';
 
@@ -15,16 +18,50 @@ export default class Colaboradores extends Component {
         super(props);
 
         this.state = {
-            colaboradores: []
+            colaboradores: [],
+            pesquisa: '',
+            paginaAtual: 0,
+            existemMaisPaginas: false
         }
 
-        this.buscaColaboradores();
+        this.buscaColaboradores(false);
     }
 
-    buscaColaboradores = () => {
-        api.get('/colaboradores')
+    handleInputPesquisa = (event) => {
+        this.setState({ pesquisa: event.target.value, paginaAtual: 0 }, () => {
+            this.buscaColaboradores(false);
+        });
+    }
+
+    carregaLista = () => {
+        this.setState({ pesquisa: '' }, () => {
+            this.buscaColaboradores(false);
+        });
+    }
+
+    verMais = () => {
+        let paginaAtual = this.state.paginaAtual;
+        this.setState({ paginaAtual: paginaAtual + 1 }, () => {
+            this.buscaColaboradores(true);
+        });
+    }
+
+    buscaColaboradores = (paginacao) => {
+        let colaboradores = this.state.colaboradores;
+        if (!colaboradores) {
+            colaboradores = [];
+        }
+        let params = '?pagina=' + this.state.paginaAtual;
+        params += this.state.pesquisa ? '&nome=' + this.state.pesquisa : '';
+
+        api.get('/colaboradores' + params)
             .then(response => {
-                this.setState({ colaboradores: response.data.content });
+                if (paginacao) {
+                    colaboradores = colaboradores.concat(response.data.content);
+                    this.setState({ colaboradores, existemMaisPaginas: !response.data.last });
+                } else {
+                    this.setState({ colaboradores: response.data.content, existemMaisPaginas: !response.data.last });
+                }
             })
             .catch(erro => {
                 // console.error(erro);
@@ -42,13 +79,16 @@ export default class Colaboradores extends Component {
                 <Navbar />
                 <Container>
                     <ContainerBusca>
-                        <Search />
-                        <BotaoNovoColaborador />
+                        <Search handleInputChange={this.handleInputPesquisa.bind(this)} />
+                        <BotaoNovoColaborador carregaLista={this.carregaLista.bind(this)} />
                     </ContainerBusca>
                     {!!(colaboradores && colaboradores.length)
                         && colaboradores.map(
-                            colaborador => <CardColaborador key={colaborador.id} colaborador={colaborador} buscaColaboradores={this.buscaColaboradores} />
+                            colaborador => <Link key={colaborador.id} to={{pathname: `/colaboradores/${colaborador.id}`}}><CardColaborador colaborador={colaborador} carregaLista={this.carregaLista.bind(this)} /></Link>
                         )
+                    }
+                    {(this.state.existemMaisPaginas &&
+                        <div className="divVerMais"> <Button variant="success" onClick={() => this.verMais()}>Ver mais</Button></div>)
                     }
                 </Container >
             </div>

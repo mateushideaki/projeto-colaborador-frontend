@@ -7,6 +7,18 @@ export const Container = styled.div`
     flex-flow: row wrap;
     align-items: center;
     padding: 20px 10%;
+
+    .divVerMais {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+
+        button {
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
 `;
 
 export const ContainerBusca = styled.div`
@@ -15,4 +27,6 @@ export const ContainerBusca = styled.div`
     justify-content: center;
     flex-flow: row wrap;
     align-items: center;
+
+    
 `;

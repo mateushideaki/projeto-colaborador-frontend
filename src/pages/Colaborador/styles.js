@@ -1,39 +1,113 @@
 import styled from 'styled-components';
-
-import { MdAddCircle } from 'react-icons/md';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-export const Card = styled.div`
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  margin: 10px;
-  border: 1px solid rgba(34,36,38,.15);
-  border-radius: 5px;
-  min-width: 175px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-flow: column;
-  margin: 5px;
-  color: #3a3a3a;
-  background-color: white;
-  cursor: pointer;
+export const Container = styled.div`
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-items: center;
+    margin: 20px 20%;
 
-  &:hover {
-    opacity: 0.7;
-  }
-`;
+    .divAcoes {
+        width: 100%;
+        text-align: right;
+        svg {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    }
 
-export const LabelNovo = styled.label`
-  font-size: 15px;
-  margin-bottom: 0px;
-  cursor: pointer;
-`;
+    .informacoesPessoais {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #a8a8a8;
+        padding-bottom: 25px;
 
-export const IconAddColaborador = styled(MdAddCircle)`
-  margin-right: 5px;
+        img {
+            flex: 1;
+            max-width: 150px;
+            border: 1px solid #a8a8a8;
+            border-radius: 1000px;
+            margin-right: 25px;
+        }
+
+        .dadosTextuais {
+            flex: 1;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: left;
+            justify-content: center;
+
+            .labelNome {
+                flex: 1;
+                font-size: 32px;
+                font-weight: bold;
+                line-height: 40px;
+            }
+            .labelCargo {
+                flex: 1;
+                font-size: 18x;
+                font-weight: bold;
+                color: #727272;
+            }
+            .labelTime {
+                flex: 1;
+                font-size: 16px;
+                color: #727272;
+            }
+        }
+    }
+
+    .divCompetencias {
+        margin-bottom: 25px;
+    }
+
+    .divContatos {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        margin-bottom: 25px;
+
+        .containerContato {
+            flex: 1;
+            min-width: 50%;
+            margin-bottom: 15px;
+            
+            svg {
+                display: inline-flex;
+                margin-bottom: 5px;
+            }
+
+            .contato {
+                display: inline-flex;
+                margin-left: 5px;
+                font-size: 18px;
+            }
+        }
+    }
+
+    .divEndereco {
+        width: 100%;
+
+        svg {
+            display: inline-flex;
+            margin-bottom: 5px;
+        }
+
+
+        label {
+            display: inline-flex;
+            margin-left: 5px;
+            font-size: 18px;
+        }
+    }
 `;
 
 export const ContainerInput = styled.div`
@@ -46,7 +120,7 @@ export const ContainerInput = styled.div`
       margin-top: 10px;
       font-size: 16px;
       color: #737373;
-    };
+    }
 
     input {
         width: 100%;
@@ -210,6 +284,7 @@ export const DivCompetencias = styled.div`
   display: flex;
   align-items: flex-start;
   flex-flow: row wrap;
+  width: 100%;
 
   .competencia {
       padding: 10px 20px;
@@ -226,7 +301,6 @@ export const DivCompetencias = styled.div`
 
 export const DivContatos = styled.div`
   width: 100%;
-  
   
   .containerContato {
     display: flex;
@@ -262,4 +336,5 @@ export const DivContatos = styled.div`
   }
   
 `;
+
 
